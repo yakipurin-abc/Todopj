@@ -18,11 +18,12 @@ class TodosController extends Controller
         $todo->save();
         return redirect('/');
     }
-    public function edit(Request $request) {
+    public function update(Request $request) {
         $this->validate($request, todo::$rules);
-        $form = Todo::find($request->id);
+        $todo = Todo::find($request->id);
         $form = $request->all();
-        Todo::where('id', $request->id)->update($form);
+        unset($form['_token_']);
+        $todo->fill($form)->save();
         return redirect('/');
     }
     public function delete(Request $request) {

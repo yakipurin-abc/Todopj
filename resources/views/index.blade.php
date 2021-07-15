@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <title>COACHTECH</title>
+  <title>Todoリスト</title>
 </head>
 <body>
   <div class="container">
@@ -37,21 +37,22 @@
           <td>
             {{ $todo->created_at }}
           </td>
-          <form action='/' method="patch">
+          <form action='/' method="post">
             <td>
               @csrf
               @method('patch')
-              <input type="text" name="content" class="task-name" value="{{ $todo->content }}">
+              <input type="hidden" name="id" value="{{ $todo->id }}">
+              <input type="text" name="content" class="task-name" value="{{$todo->content}}">
             </td>
             <td>
               <button type="submit" class="btn btn-update">更新</button>
             </td>
           </form>
           <td>
-            <form action="/" method="delete">
+            <form action="/" method="post">
               @csrf
               @method("delete")
-              <input type="hidden" name="id" value="{{$todo->id}}">
+              <input type="hidden" name="id" value="{{ $todo->id }}">
               <button type="submit" class="btn btn-delete">削除</button>
             </form>
           </td>
